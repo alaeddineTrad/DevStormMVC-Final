@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
+    
     public class Product
     {
         private int productId;
@@ -14,7 +15,7 @@ namespace Domain.Entities
         private string brand;
         private float price;
         private float tva;
-        private Category category;
+        private string category;
         private int quantity;
         private float discount;
         public virtual ICollection<Image> Images { get; set; }
@@ -75,7 +76,7 @@ namespace Domain.Entities
             }
         }
 
-        public Category Category
+        public string Category
         {
             get
             {

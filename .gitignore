@@ -1,2 +1,5 @@
+*.csproj
+**bin/
 **Debug/
 .vs
+ConsoleApplication1/
