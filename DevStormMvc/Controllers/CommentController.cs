@@ -1,8 +1,6 @@
-﻿using Data;
-using DevStormMvc.Data.Infrastructure;
+﻿using DevStormMvc.Data.Infrastructure;
 using DevStormMvc.Models;
 using Domain.Entities;
-using Domain.Entities.ComplexType;
 using ServicesSpec;
 using System;
 using System.Collections.Generic;
@@ -12,73 +10,52 @@ using System.Web.Mvc;
 
 namespace DevStormMvc.Controllers
 {
-    public class ProductController : Controller
+    public class CommentController : Controller
     {
-
-        //IServiceProduct serviceProduct = new ServiceProduct();
-        
-        // GET: Product
+        IServiceComment serviceComment = new ServiceComment();
+        // GET: Comment
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Product/Details/5
+        // GET: Comment/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Product/Create
+        // GET: Comment/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Product/Create
+        // POST: Comment/Create
         [HttpPost]
-        public ActionResult Create(ProductModel PM)
+        public ActionResult Create(CommentModel CM)
         {
-            Context ctx = new Context(); 
-            Category c = new Category { Name = "Test" };
-            
-            //List<Image> im = new List<Image>();
-            //foreach (var x in PM.Images) {
-            //    Image i = new Image ();
-            //    i.ImageId = x ;
-            //    ctx.Images.Attach(i);
-            //    im.Add(i);
-                
-
-            //}
-             
-            Product p = new Product
-
+            Comment c = new Comment
             {
-                ProductId = PM.productId,
-                Name = PM.name,
-                Brand = PM.brand,
-                Discount = PM.discount,
-                Tva = PM.tva,
-                Price = PM.price,
-                Quantity = PM.quantity,
-                Category = c,
-                //Images = im
-               
+                CommentId = CM.commentId,
+                Date = CM.date,
+                Text = CM.text
+         
 
             };
-            
+
+
+
             try
             {
                 // TODO: Add insert logic here
-                //serviceProduct.Add(p);
-                //serviceProduct.Commit();
-                DatabaseFactory dbf = new DatabaseFactory();
-                UnitOfWork u = new UnitOfWork(dbf);
-                u.GetRepository<Product>().Add(p);
-                u.Commit();
+                //DatabaseFactory dbf = new DatabaseFactory();
+                //UnitOfWork u = new UnitOfWork(dbf);
+                //u.GetRepository<Comment>().Add(c);
+                //u.Commit();
+                serviceComment.Add(c);
+                serviceComment.Commit();
                 return RedirectToAction("Index");
-
             }
             catch
             {
@@ -86,13 +63,13 @@ namespace DevStormMvc.Controllers
             }
         }
 
-        // GET: Product/Edit/5
+        // GET: Comment/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Product/Edit/5
+        // POST: Comment/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -108,13 +85,13 @@ namespace DevStormMvc.Controllers
             }
         }
 
-        // GET: Product/Delete/5
+        // GET: Comment/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Product/Delete/5
+        // POST: Comment/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
