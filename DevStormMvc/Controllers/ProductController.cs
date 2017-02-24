@@ -16,7 +16,7 @@ namespace DevStormMvc.Controllers
     public class ProductController : Controller
     {
 
-        //IServiceProduct serviceProduct = new ServiceProduct();
+        IServiceProduct serviceProduct = new ServiceProduct();
         
         // GET: Product
         public ActionResult Index()
@@ -47,7 +47,19 @@ namespace DevStormMvc.Controllers
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Product p = (Product)serviceProduct.GetById(id);
+            ProductModel pm = new ProductModel
+            {
+                productId = p.ProductId,
+                name = p.Name,
+                brand = p.Brand,
+                discount = p.Discount,
+                tva = p.Tva,
+                price = p.Price,
+                quantity = p.Quantity,
+                category = p.Category,
+            };
+            return View(pm);
         }
 
         // GET: Product/Create
