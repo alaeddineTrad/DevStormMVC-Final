@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Entities.ComplexType;
 using ServicesSpec;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,9 +19,29 @@ namespace DevStormMvc.Controllers
         //IServiceProduct serviceProduct = new ServiceProduct();
         
         // GET: Product
-        public ActionResult Index(ImageModel)
+        public ActionResult Index()
         {
-            return View();
+            DatabaseFactory dbf = new DatabaseFactory();
+            UnitOfWork u = new UnitOfWork(dbf);
+            List<ProductModel> pm = new List<ProductModel>();
+            var l = u.GetRepository<Product>().GetAll();
+           foreach(var item in l)
+            {
+                pm.Add(new ProductModel
+                {
+
+                    productId = item.ProductId,
+                    name = item.Name,
+                    brand = item.Brand,
+                    discount = item.Discount,
+                    tva = item.Tva,
+                    price = item.Price,
+                    quantity = item.Quantity,
+                    category = item.Category,
+
+                });
+            }
+            return View(pm);
         }
 
         // GET: Product/Details/5
@@ -40,18 +61,6 @@ namespace DevStormMvc.Controllers
         public ActionResult Create(ProductModel PM)
         {
             Context ctx = new Context(); 
-            Category c = new Category { Name = "Test" };
-            
-            //List<Image> im = new List<Image>();
-            //foreach (var x in PM.Images) {
-            //    Image i = new Image ();
-            //    i.ImageId = x ;
-            //    ctx.Images.Attach(i);
-            //    im.Add(i);
-                
-
-            //}
-             
             Product p = new Product
 
             {
@@ -62,7 +71,7 @@ namespace DevStormMvc.Controllers
                 Tva = PM.tva,
                 Price = PM.price,
                 Quantity = PM.quantity,
-                Category = c,
+                Category = PM.category,
                 //Images = im
                
 
