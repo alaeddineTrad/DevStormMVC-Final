@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ServicesSpec
 {
-    public class ServiceProduct : Service<Product>, IServiceProduct
+    public class ServiceComment: Service<Comment>, IServiceComment
     {
         public static IDatabaseFactory Dbf = new DatabaseFactory();
         public static IUnitOfWork UOW = new UnitOfWork(Dbf);
 
-        public ServiceProduct() : base(UOW)
+        public ServiceComment() : base(UOW)
         {
         }
 
