@@ -110,39 +110,77 @@ namespace DevStormMvc.Controllers
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Product p = (Product)serviceProduct.GetById(id);
+            ProductModel pm = new ProductModel
+            {
+                productId = p.ProductId,
+                name = p.Name,
+                brand = p.Brand,
+                discount = p.Discount,
+                tva = p.Tva,
+                price = p.Price,
+                quantity = p.Quantity,
+                category = p.Category,
+            };
+            return View(pm);
         }
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ProductModel pm)
         {
             try
             {
-                // TODO: Add update logic here
 
+                // TODO: Add update logic here
+                Product p = (Product)serviceProduct.GetById(id);
+                p.Name = pm.name;
+                p.Brand = pm.brand;
+                p.Discount = pm.discount;
+                p.Tva = pm.tva;
+                p.Price = pm.price;
+                p.Quantity = pm.quantity;
+                p.Category = pm.category;
+                serviceProduct.Update(p);
+                serviceProduct.Commit();
+                //DatabaseFactory dbf = new DatabaseFactory();
+                //UnitOfWork u = new UnitOfWork(dbf);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(pm);
             }
         }
 
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Product p = (Product)serviceProduct.GetById(id);
+            ProductModel pm = new ProductModel
+            {
+                productId = p.ProductId,
+                name = p.Name,
+                brand = p.Brand,
+                discount = p.Discount,
+                tva = p.Tva,
+                price = p.Price,
+                quantity = p.Quantity,
+                category = p.Category,
+
+            };
+            return View(pm);
         }
 
         // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, ProductModel pm)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                serviceProduct.Delete(serviceProduct.GetById(id));
+                serviceProduct.Commit();
                 return RedirectToAction("Index");
             }
             catch

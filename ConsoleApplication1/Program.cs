@@ -16,14 +16,16 @@ namespace ConsoleApplication1
         {
             Console.WriteLine("debut");
             IServiceProduct s = new ServiceProduct();
-            Category c = new Category { Name = "Test" };
-            Product p = new Product { Name = "Test" ,Category=c};
-
-            DatabaseFactory d = new DatabaseFactory();
-            UnitOfWork u = new UnitOfWork(d);
             
-            u.GetRepository<Product>().Add(p);
-            u.Commit();
+            
+            ////Category c = new Category { Name = "Test" };
+            
+
+            //DatabaseFactory d = new DatabaseFactory();
+            //UnitOfWork u = new UnitOfWork(d);
+            
+            //u.GetRepository<Product>().Add(p);
+            //u.Commit();
             Console.WriteLine("fin");
             Console.ReadKey();
 
