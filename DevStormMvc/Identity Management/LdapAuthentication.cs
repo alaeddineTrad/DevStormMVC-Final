@@ -14,6 +14,7 @@ namespace DevStormMvc.Identity_Management
         private String _domainAndUsername;
         private String _pwd;
         private String _username;
+        private String _domain;
         //private Label _errLabel;
 
         public object another { get; private set; }
@@ -24,6 +25,7 @@ namespace DevStormMvc.Identity_Management
             _domainAndUsername = domain + @"\" + username;
             _pwd = pwd;
             _username = username;
+            _domain = domain;
         }
 
         public bool IsAuthenticated()
@@ -59,10 +61,10 @@ namespace DevStormMvc.Identity_Management
             return true;
         }
 
-        public String GetGroups(String domain, String username, String pwd)
+        public String GetGroups()
         {
-            String domainAndUsername = domain + @"\" + username;
-            DirectoryEntry entry = new DirectoryEntry(_path, domainAndUsername, pwd);
+            String domainAndUsername = _domain + @"\" + _username;
+            DirectoryEntry entry = new DirectoryEntry(_path, domainAndUsername, _pwd);
             DirectorySearcher search = new DirectorySearcher(entry);
 
             search.Filter = "(cn=" + _filterAttribute + ")";
